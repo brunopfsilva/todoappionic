@@ -16,8 +16,14 @@ export class HomePage {
     public taskService: TaskService,
     public toastController: ToastController,
     public popoverController: PopoverController,
-    ) {}
+    ) {
 
+     
+
+    }
+    ngOnInit(){
+        this.taskService.getTaskFromStorage();
+    }
 
     async openPopover(ev: any) {
       const popover = await this.popoverController.create({

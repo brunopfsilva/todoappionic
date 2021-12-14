@@ -37,7 +37,7 @@
   <ion-item-sliding *ngFor="let task of taskService.getTasks(); let i = index">
     <ion-item *ngIf="!task.done">
       <ion-label>{{task.value}}</ion-label>
-      <ion-checkbox slot="start" [(ngModel)]="task.done"></ion-checkbox>
+      <ion-checkbox slot="start" [(ngModel)]="task.done"  (ionChange)="taskService.setStorage()"></ion-checkbox>
       <!-- so mostra o campo abaixo se a data tiver setada -->
       <ion-badge color="warning" *ngIf="task.date.getDate()" >
         {{task.date.getDate() + "/" + (task.date.getMonth()+1) + "/" + task.date.getFullYear()}}
@@ -60,7 +60,7 @@
   <ion-item-sliding *ngFor="let task of taskService.getTasks(); let i = index">
     <ion-item *ngIf="task.done" >
       <ion-label>{{task.value}}</ion-label>
-      <ion-checkbox slot="start" [(ngModel)]="task.done"></ion-checkbox>
+      <ion-checkbox slot="start" [(ngModel)]="task.done" (ionChange)="taskService.setStorage()" ></ion-checkbox>
       <!-- so mostra o campo abaixo se a data tiver setada -->
       <ion-badge color="warning" *ngIf="task.date.getDate()" >
         {{task.date.getDate() + "/" + (task.date.getMonth()+1) + "/" + task.date.getFullYear()}}
