@@ -18,11 +18,7 @@ export class HomePage {
     public taskService: TaskService,
     public toastController: ToastController,
     public popoverController: PopoverController,
-    ) {
-
-     
-
-    }
+    ) {}
     ngOnInit(){
      this.tasks = this.taskService.getFirestore();
         //this.taskService.getTaskFromStorage();
@@ -122,7 +118,7 @@ export class HomePage {
     await alert.present();
   }
 
-  async presentAlertPromptdelete(index: number) {
+  async presentAlertPromptdelete(id: number) {
     const alert = await this.alertController.create({
       header: 'Deletar Tarefa?',
       buttons: [
@@ -133,7 +129,7 @@ export class HomePage {
         {
           text: 'Excluir',
           handler: () => {
-           this.taskService.delTask(index);
+           this.taskService.deleteteOnFireStore(id);
           }
         },
       ],

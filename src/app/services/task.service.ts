@@ -1,4 +1,3 @@
-import { getFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
@@ -37,13 +36,13 @@ export class TaskService {
     this.addtoFirestore(task);
     console.log(this.tasks);
     //adiciona tarefa ao storage
-    this.setStorage();
+   // this.setStorage();
   }
 
   public delTask (index: number) {
     //remove o item apartir da posicao, na quantidade de 1 
     this.tasks.splice(index,1);
-    this.setStorage();
+   // this.setStorage();
   }
 
   public updateTask (index: number,value: string, date: string) {
@@ -53,7 +52,7 @@ export class TaskService {
      task.date = new Date();
      //remove uma tarefa e adiciona outra na mesma posição
      this.tasks.splice(index,1,task);
-     this.setStorage();
+  //   this.setStorage();
   }
 
   public async getTaskFromStorage() {
@@ -90,16 +89,38 @@ export class TaskService {
     return this.fire.collection(this.colectionName).add(record);
   }
 
-  public getFirestore(){
+  public getFirestore() {
     return this.fire.collection(this.colectionName).valueChanges({
-      iDField : 'id'
-    })
+      //      iDField : 'id', letra incorreta fez o update,delete nao funciona tudo ok agora     
+
+      idField : 'id',      
+    }); 
+  }
+
+  public updateOnFireStore(recordId, record: Task){
+    this.fire.doc(this.colectionName + '/' + recordId).update(record);
+  }
+
+  public deleteteOnFireStore(recordId){
+    this.fire.doc(this.colectionName + '/' + recordId).delete();
+    console.log(recordId);
+    
+  }
+
+
+  public taskDone(id,task){
+    // seta valor oposto do atual
+    task.done = !task.done;
+    this.updateOnFireStore(id,task);
   }
 
 }
 
+
+
 //interface serve para definir tipos
 interface Task {
+ id?: string, 
  value: string;
  date?: Date;
  done: boolean;   
