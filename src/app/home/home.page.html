@@ -34,13 +34,13 @@
   
   <!-- List of Sliding Items -->
 <ion-list *ngIf="type == 'pendente'" >
-  <ion-item-sliding *ngFor="let task of taskService.getTasks(); let i = index">
+  <ion-item-sliding *ngFor="let task of tasks | async">
     <ion-item *ngIf="!task.done">
       <ion-label>{{task.value}}</ion-label>
-      <ion-checkbox slot="start" [(ngModel)]="task.done"  (ionChange)="taskService.setStorage()"></ion-checkbox>
+      <ion-checkbox slot="start"   (ionChange)="taskService.setStorage()"></ion-checkbox>
       <!-- so mostra o campo abaixo se a data tiver setada -->
-      <ion-badge color="warning" *ngIf="task.date.getDate()" >
-        {{task.date.getDate() + "/" + (task.date.getMonth()+1) + "/" + task.date.getFullYear()}}
+      <ion-badge color="warning" *ngIf="task.date" >
+        {{task.date.toDate() | date: 'dd/MM/YYYY' }}
       </ion-badge>
     </ion-item>
     <ion-item-options side="end">
@@ -57,13 +57,13 @@
    
 
 <ion-list *ngIf="type == 'done'" >
-  <ion-item-sliding *ngFor="let task of taskService.getTasks(); let i = index">
+  <ion-item-sliding *ngFor="let task of tasks | async">
     <ion-item *ngIf="task.done" >
       <ion-label>{{task.value}}</ion-label>
-      <ion-checkbox slot="start" [(ngModel)]="task.done" (ionChange)="taskService.setStorage()" ></ion-checkbox>
+      <ion-checkbox slot="start"  (ionChange)="taskService.setStorage()" ></ion-checkbox>
       <!-- so mostra o campo abaixo se a data tiver setada -->
-      <ion-badge color="warning" *ngIf="task.date.getDate()" >
-        {{task.date.getDate() + "/" + (task.date.getMonth()+1) + "/" + task.date.getFullYear()}}
+      <ion-badge color="warning" *ngIf="task.date" >
+        {{task.date.toDate() | date: 'dd/MM/YYYY' }}
       </ion-badge>
     </ion-item>
     <ion-item-options side="end">
