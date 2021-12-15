@@ -2,6 +2,7 @@ import { PopoverComponent } from './../popover/popover.component';
 import { TaskService } from './../services/task.service';
 import { Component } from '@angular/core';
 import { AlertController, ToastController,PopoverController } from '@ionic/angular';
+import {Observable} from 'rxjs'
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,7 @@ import { AlertController, ToastController,PopoverController } from '@ionic/angul
 export class HomePage {
 
   type : string = "pendente";
+  public tasks: Observable<any[]>;
 
   constructor(public alertController: AlertController,
     public taskService: TaskService,
@@ -22,7 +24,8 @@ export class HomePage {
 
     }
     ngOnInit(){
-        this.taskService.getTaskFromStorage();
+     this.tasks = this.taskService.getFirestore();
+        //this.taskService.getTaskFromStorage();
     }
 
     async openPopover(ev: any) {
@@ -62,7 +65,7 @@ export class HomePage {
           text: 'Salvar',
           handler: (alertData) => {
             if(alertData.task != "")
-              this.taskService.addTask(alertData.task,alertData.date);
+              this.taskService.addTask(alertData.task,alertData.date,alertData.done);
             else {
               this.presentToast();
               this.presentAlertPromptAdd();

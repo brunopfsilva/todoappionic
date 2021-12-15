@@ -1,4 +1,6 @@
+import { getFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import { Plugins } from '@capacitor/core'
 
@@ -9,23 +11,32 @@ const { Storage } = Plugins;
 })
 export class TaskService {
 
-  private tasks: Task [] = []
+  private tasks: Task [] = [];
+  //coleção para base de dados
+  private colectionName: string = 'task';
 
-  constructor() { }
+  constructor(public fire: AngularFirestore) { 
+    
+  }
 
 
   public getTasks(): Task[]{
     return this.tasks;
   }
 
-  public addTask (value: string, date: string){
+  public addTask (value: string, date: string,done: false){
+    let task: Task;
+    if(date != ''){
+      task =  {value: value, date: new Date(date), done}
+    }
    // date = date.replace("-","/");
-    let task: Task = {
-      value: value, date: new Date(date), done: false
-    }; 
+   task =  {value: value,date: new Date(date), done: false}
     //adiciona tarefa no array
     this.tasks.push(task);
+    //adiciona tarefa ao firestore
+    this.addtoFirestore(task);
     console.log(this.tasks);
+    //adiciona tarefa ao storage
     this.setStorage();
   }
 
@@ -73,11 +84,23 @@ export class TaskService {
     });
   }
 
+
+  //adiciona ao firestore
+  public addtoFirestore(record: Task){
+    return this.fire.collection(this.colectionName).add(record);
+  }
+
+  public getFirestore(){
+    return this.fire.collection(this.colectionName).valueChanges({
+      iDField : 'id'
+    })
+  }
+
 }
 
 //interface serve para definir tipos
 interface Task {
  value: string;
- date: Date;
- done?: boolean;   
+ date?: Date;
+ done: boolean;   
 }
