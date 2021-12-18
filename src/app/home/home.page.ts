@@ -91,7 +91,7 @@ export class HomePage {
           type: 'date',
           min: '2021-01-31',
           max: '2025-01-31',
-          value: task.date.getDate() + "/" + (task.date.getMonth()+1) + "/" + task.date.getFullYear()
+          value: task.date ? task.date : ''
         },
       ],
       buttons: [
@@ -106,8 +106,7 @@ export class HomePage {
               this.taskService.updateTask(id,task,alertData.task,alertData.date);
             else {
               this.presentToast();
-              this.taskService.updateTask(id,task,alertData.task,alertData.date);
-            }
+             this. presentAlertPromptUpdate(id,task)            }
           }
         },
       ],

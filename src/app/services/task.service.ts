@@ -29,12 +29,12 @@ export class TaskService {
       task =  {value: value, date: new Date(date), done}
     }
    // date = date.replace("-","/");
-   task =  {value: value,date: new Date(date), done: false}
+   task =  {value: value, done: false}
     //adiciona tarefa no array
-    this.tasks.push(task);
+  //  this.tasks.push(task);
     //adiciona tarefa ao firestore
-    this.addtoFirestore(task);
-    console.log(this.tasks);
+  //  this.addtoFirestore(task);
+ //   console.log(this.tasks);
     //adiciona tarefa ao storage
    // this.setStorage();
   }
@@ -49,10 +49,14 @@ export class TaskService {
     
     let task: Task;
     if(date != ''){
-      task =  {value: value, date: new Date(date), done}
+      task =  {value: value, done}
+    } else {
+      task =  {value: value,date: new Date(date), done: done}
     }
    // date = date.replace("-","/");
-   task =  {value: value,date: new Date(date), done: done}
+
+   // deleta item na posicao, quantidade e atualiza com o item novo
+  // this.tasks.splice(indice,1,task);
     
     //a tarefa se encontra exatamente na posição para ser alterada
    this.updateOnFireStore(id,task);
