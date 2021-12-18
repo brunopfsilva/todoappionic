@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+  <ion-button color="primary" expand="block" (click)="authService.loginWithFacebook()">
+    Entre com Facebook
+  </ion-button>
+  <ion-button color="danger" expand="block" (click)="authService.loginWithGoogle()">
+    Entre com Google
+  </ion-button>
+  </div>
+</ion-content>

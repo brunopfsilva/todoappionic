@@ -1,5 +1,4 @@
 import firebase from 'firebase/compat/app';
-import {cfaSignIn, cfaSignInGoogle} from 'capacitor-firebase-auth';
 import { Injectable } from '@angular/core';
 //import { FirebaseApp as firebase } from '@angular/fire/app';
 //import { firebase, FirebaseApp } from 'firebase/app';
@@ -23,6 +22,12 @@ export class AuthService {
   }
   public loginWithFacebook(){
     this.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+  }
+
+  public loged(){
+    console.log(this.auth.user);
+    
+    return this.auth.user;
   }
 
   public logout() : Observable<any> {

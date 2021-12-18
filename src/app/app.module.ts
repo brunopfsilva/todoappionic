@@ -15,6 +15,8 @@ import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFireModule } from '@angular/fire/compat';
 import { FirebaseAppModule, initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
+import firebase from 'firebase/compat/app';
+
 import { provideAuth,getAuth } from '@angular/fire/auth';
 
 import { provideFirestore,getFirestore } from '@angular/fire/firestore'
