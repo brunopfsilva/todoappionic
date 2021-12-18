@@ -45,14 +45,17 @@ export class TaskService {
    // this.setStorage();
   }
 
-  public updateTask (index: number,value: string, date: string) {
+  public updateTask (id: string,value: string, date: string, done: boolean) {
+    
+    let task: Task;
+    if(date != ''){
+      task =  {value: value, date: new Date(date), done}
+    }
+   // date = date.replace("-","/");
+   task =  {value: value,date: new Date(date), done: done}
+    
     //a tarefa se encontra exatamente na posição para ser alterada
-    let task = this.tasks[index];
-     task.value = value;
-     task.date = new Date();
-     //remove uma tarefa e adiciona outra na mesma posição
-     this.tasks.splice(index,1,task);
-  //   this.setStorage();
+   this.updateOnFireStore(id,task);
   }
 
   public async getTaskFromStorage() {

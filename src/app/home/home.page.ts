@@ -76,7 +76,7 @@ export class HomePage {
     await alert.present();
   }
 
-  async presentAlertPromptUpdate(index: number, task) {
+  async presentAlertPromptUpdate(id: string, task) {
     const alert = await this.alertController.create({
       header: 'Atualizar Tarefa!',
       inputs: [
@@ -103,10 +103,10 @@ export class HomePage {
           text: 'Editar',
           handler: (alertData) => {
             if(alertData.task != "")
-              this.taskService.updateTask(index,alertData.task,alertData.date);
+              this.taskService.updateTask(id,task,alertData.task,alertData.date);
             else {
               this.presentToast();
-              this.taskService.updateTask(index,alertData.task,alertData.date);
+              this.taskService.updateTask(id,task,alertData.task,alertData.date);
             }
           }
         },

@@ -28,6 +28,7 @@
     "@capacitor/status-bar": "1.0.6",
     "@capacitor/storage": "^1.2.3",
     "@ionic/angular": "^5.5.2",
+    "capacitor-firebase-auth": "^3.0.0",
     "firebase": "^9.6.1",
     "rxfire": "^6.0.0",
     "rxjs": "~6.6.0",
