@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import { TaskService } from './services/task.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -12,19 +13,26 @@ import { PopoverComponent } from './popover/popover.component';
 //firebase
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFireModule } from '@angular/fire/compat';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { FirebaseAppModule, initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
+
 import { provideFirestore,getFirestore } from '@angular/fire/firestore'
 
 @NgModule({
   declarations: [AppComponent,PopoverComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,AngularFireModule.initializeApp(environment.firebase), provideFirebaseApp(() => initializeApp(environment.firebase)), provideAuth(() => getAuth()), provideFirestore(() => getFirestore())
+  imports: [BrowserModule, IonicModule.forRoot(),
+     AppRoutingModule,
+     AngularFireAuthModule,
+     FirebaseAppModule,
+     AngularFireModule.initializeApp(environment.firebase), 
+     
+     
     
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-  
+  TaskService,AuthService
   ],
   bootstrap: [AppComponent],
 })
